@@ -1,0 +1,54 @@
+﻿@model WendingMachineViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}    
+<div id="main-content">
+    <div id="container">
+        @foreach (var t in ViewBag.Coins.Coins)
+        {
+            
+            
+                <div class="coin-item">
+                    <img src="~/images/@t.ImageUrl">
+                    <p>монета @t.Value</p>
+                    @if (t.isAvailable == true)
+                    {
+                    @Html.ActionLink("Добавить на баланс", "AddBalanceCoin", new { Value = t.Value, Balance = Model.Balance })
+                    }
+                    else { <p>Монета заблокирована</p>}
+               </div>
+
+
+
+        }        
+    </div>
+    @if (Model != null)
+    {      
+        <div class="balance-area">
+        <p class="balance">Баланс автомата @Model.Balance</p>
+        <br/>
+        <a href="/Home/TakeTips"><input type="button" value="Забрать сдачу"></a>
+         </div>
+        <div class="items-area">
+            @foreach (var t in Model.Drinks)
+            {
+                
+                    @if (t.isAvailable == true)
+                    {
+                        <div class="drink-item">
+                        <img src="@t.ImageUrl" class="drink-image">
+                        <p>Напиток - @t.Title</p>
+                        <p>Цена - @t.Price</p>
+                        <p>Количество - @t.Count</p>
+                        @if (t.Count > 0 && Model.Balance>=t.Price)
+                        {
+                            @Html.ActionLink("Купить", "OrderDrink", new { t.Id })
+                        }
+                        </div>
+                    }
+                
+            }
+        </div>
+    }
+</div>
+

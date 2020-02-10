@@ -1,0 +1,90 @@
+﻿@model WendingMachineViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div id="main-content">
+    <div id="container">
+        @foreach (var t in ViewBag.Coins.Coins)
+        {
+            <div class="coin-item">
+
+                <img src="~/images/@t.ImageUrl">
+                <p>монета @t.Value</p>
+
+                @if (t.isAvailable == true)
+                {
+                    @Html.ActionLink("Добавить на баланс", "AddBalance", new { Value = t.Value, Balance = Model.Balance })
+                    <br>
+                    @Html.ActionLink("Сделать недоступной", "MakeNotAvailableCoin", new { Value = t.Value, Balance = Model.Balance })
+                }
+                else
+                {
+                    @Html.ActionLink("Сделать доступной", "MakeAvailableCoin", new { Value = t.Value, Balance = Model.Balance })
+                }
+            </div>
+        }
+    </div>
+    @if (Model != null)
+    {
+        <div class="balance-area">
+            <p class="balance">Баланс автомата @Model.Balance</p>
+            <form action="/Admin/AddBalanceAdmin/" method="post">
+                <p class="balance-title">Добавить на баланс</p>
+                <input type="text" name="Addcash" required="" class="add-sub-cash" id="Addcash" />
+                <input type="submit" value="Добавить">
+            </form>
+            <form action="/Admin/SubBalanceAdmin/" methop="post">
+                <p class="balance-title">Убавить с баланса</p>
+                <input type="text" name="Subcash" required="" class="add-sub-cash" />
+                <input type="submit" value="Убавить">
+            </form>
+            @if (Model.Balance > 0)
+            {<a href="/Home/TakeTips"><input type="button" value="Забрать сдачу"></a>}
+        </div>
+
+        <div class="items-area">
+            @foreach (var t in Model.Drinks)
+            {
+                <div class="drink-item">
+                    <img src="@t.ImageUrl" class="drink-image">
+                    <p>Название - @t.Title</p>
+                    <p>Цена - @t.Price</p>
+                    <p>Количество - @t.Count</p>
+                    <p>Доступность - @t.isAvailable</p>
+                    @if (t.isAvailable == true)
+                    {
+                        @Html.ActionLink("Сделать недоступным", "MakeNotAvailableDrink", new { t.Id });
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Сделать доступным", "MakeAvailableDrink", new { t.Id });
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+<div class="add-drink">
+    
+        Добавить товар
+        <form asp-action="CreateDrink" asp-controller="Admin" method="post" enctype="multipart/form-data">
+            <p>Введите название напитка</p>
+            <input type="text" name="Title" required="" value="Название" />
+            <p>Введите цену напитка</p>
+            <input type="text" name="Price" required="" value="Цена" />
+            <p>Введите количество напитка</p>
+            <input type="text" name="Count" required="" value="Количество" />
+            <p>Доступн ли товар?</p>
+            <input type="checkbox" name="isAvailable" />
+            <p>Добавьте картинку</p>
+            <input type="file" name="uploadedFile" /><br>
+            <input type="submit" value="Загрузить" />
+            
+        </form>
+    
+</div>
+
+
+
+
+

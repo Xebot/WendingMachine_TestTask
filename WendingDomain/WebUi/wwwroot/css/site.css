@@ -1,0 +1,88 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display:flex;
+}
+#main-content {
+    display: flex;    
+    flex-direction: row;
+}
+#container {
+    display: flex;
+    width: 20%;
+    flex-direction: column;
+}
+.coin-item{
+    text-align:center;
+}
+.balance {
+    font-size: 18px;
+    text-align: center;
+}
+.items-area{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    width:80%;
+    flex-wrap:wrap;
+}
+.drink-item {
+    min-height: 30%;
+    border: solid 1px black;
+    margin: 10px;
+    width: 30%;
+    text-align: center;
+}
+.img1 {
+    width:30%;
+    height:30%;
+}
+.drink-image {
+    width: 30%;
+    height: 50%;
+    
+}
+.balance-area {
+    display: flex;
+    width: 20%;
+    flex-direction: column;
+    text-align:center;
+}
+.balance-title{
+    font-style:bold;
+    font-size:18px;
+}
+.add-drink {
+    display: flex;
+    flex-direction: column;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
